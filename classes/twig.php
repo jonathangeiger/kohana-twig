@@ -1,36 +1,43 @@
-<?php
+<?php defined('SYSPATH') or die('No direct script access.');
 /**
- * Twig loader
+ * Twig loader.
  *
- * @package    Kohana-Twig
- * @author     John Heathco <jheathco@gmail.com>
+ * @package  Twig
+ * @author   John Heathco <jheathco@gmail.com>
  */
-class Twig
-{
+class Twig {
+
 	/**
-	 * @var Twig_Environment  Singleton environment instance
+	 * @var  object  Twig instance
 	 */
 	public static $instance;
 
-	public static function load()
-	{
-		require_once MODPATH.'twig/vendor/Twig/Autoloader.php';
-
-		// Register the autoloader
-		Twig_Autoloader::register();
-	}
+	/**
+	 * @var  object  Twig configuration (Kohana_Config object)
+	 */
+	public static $config;
 
 	public static function instance()
 	{
-		if ( ! isset(self::$instance))
+		if ( ! Twig::$instance)
 		{
-			// Initialize Twig environment
-			$loader = new Twig_Loader_Filesystem(Kohana::config('twig.templates'), Kohana::config('twig.cache'), Kohana::config('twig.auto_reload'));
-			$instance = new Twig_Environment($loader, Kohana::config('twig.environment'));
+			// Load Twig configuration
+			Twig::$config = Kohana::config('twig');
 
-			$instance->addExtension(new Twig_Extension_Trans());
+			// Create the the loader
+			$loader = new Twig_Loader_Filesystem(Twig::$config->templates, Twig::$config->cache, Twig::$config->auto_reload);
+
+			// Set up Twig
+			Twig::$instance = new Twig_Environment($loader, Twig::$config->environment);
+			Twig::$instance->addExtension(new Twig_Extension_Trans);
 		}
 
-		return $instance;
+		return Twig::$instance;
 	}
-}
+
+	final private function __construct()
+	{
+		// This is a static class
+	}
+
+} // End Twig

@@ -1,12 +1,12 @@
-<?php
+<?php defined('SYSPATH') or die('No direct script access.');
 /**
  * Twig template controller
  *
  * @package    Kohana-Twig
  * @author     John Heathco <jheathco@gmail.com>
  */
-abstract class Controller_Twig extends Controller
-{
+abstract class Controller_Twig extends Controller {
+
 	/**
 	 * @var Twig_Environment
 	 */
@@ -27,10 +27,10 @@ abstract class Controller_Twig extends Controller
 		// Setup the Twig loader environment
 		$this->twig = Twig::instance();
 
-		if (Kohana::config('twig.context_object'))
+		if (Twig::$config->context_object)
 		{
 			// Context treated as an object
-			$this->context = new stdClass();
+			$this->context = new stdClass;
 		}
 		else
 		{
@@ -39,7 +39,7 @@ abstract class Controller_Twig extends Controller
 		}
 
 		// Auto-generate template filename ('index' method called on Controller_Admin_Users looks for 'admin/users/index')
-		$this->template = $request->controller.'/'.$request->action.Kohana::config('twig.suffix');
+		$this->template = $request->controller.'/'.$request->action.Twig::$config->suffix;
 
 		if ( ! empty($request->directory))
 		{
@@ -58,4 +58,5 @@ abstract class Controller_Twig extends Controller
 			$this->request->response = $this->twig->loadTemplate($this->template)->render((array) $this->context);
 		}
 	}
-}
+
+} // End Controller_Twig

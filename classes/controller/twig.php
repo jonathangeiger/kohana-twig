@@ -25,9 +25,9 @@ abstract class Controller_Twig extends Controller {
 	public function __construct(Request $request)
 	{
 		// Setup the Twig loader environment
-		$this->twig = Twig::instance();
+		$this->twig = Kohana_Twig::instance();
 
-		if (Twig::$config->context_object)
+		if (Kohana_Twig::$config->context_object)
 		{
 			// Context treated as an object
 			$this->context = new stdClass;
@@ -39,7 +39,7 @@ abstract class Controller_Twig extends Controller {
 		}
 
 		// Auto-generate template filename ('index' method called on Controller_Admin_Users looks for 'admin/users/index')
-		$this->template = $request->controller.'/'.$request->action.Twig::$config->suffix;
+		$this->template = $request->controller.'/'.$request->action.Kohana_Twig::$config->suffix;
 
 		if ( ! empty($request->directory))
 		{

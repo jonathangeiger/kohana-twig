@@ -37,7 +37,7 @@ class Kohana_Twig_TokenParser_BlockTrans extends Twig_TokenParser
 
 		$this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
 
-		return new Twig_Node_BlockTrans($lineno, $this->getTag(), $data, $vals);
+		return new Kohana_Twig_Node_BlockTrans($lineno, $this->getTag(), $data, $vals);
 	}
 
 	public function getTag()

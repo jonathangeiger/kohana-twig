@@ -29,7 +29,12 @@ class Kohana_Twig {
 
 			// Set up Twig
 			Kohana_Twig::$instance = new Twig_Environment($loader, Kohana_Twig::$config->environment);
-			Kohana_Twig::$instance->addExtension(new Kohana_Twig_Extension_Trans);
+
+			foreach (Kohana_Twig::$config->extensions as $extension)
+			{
+				// Load extensions
+				Kohana_Twig::$instance->addExtension(new $extension);
+			}
 		}
 
 		return Kohana_Twig::$instance;

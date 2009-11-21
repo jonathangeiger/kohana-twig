@@ -44,7 +44,7 @@ abstract class Controller_Twig extends Controller {
 		if ( ! empty($request->directory))
 		{
 			// Preprend directory if needed
-			$this->template = $request->directory.'/'.$template;
+			$this->template = $request->directory.'/'.$this->template;
 		}
 
 		parent::__construct($request);

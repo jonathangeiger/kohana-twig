@@ -6,6 +6,7 @@ class Kohana_Twig_Extensions extends Twig_Extension
 	{
 		return array(
 			new Kohana_Twig_URL_TokenParser(),
+			new Kohana_Twig_Cache_TokenParser(),
 			new Kohana_Twig_Asset_Javascript_TokenParser(),
 			new Kohana_Twig_Asset_Stylesheet_TokenParser(),
 		);

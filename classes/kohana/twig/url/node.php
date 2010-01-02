@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Kohana_Twig_URL_Node extends Twig_Node
+class Kohana_Twig_Url_Node extends Twig_Node
 {
 	protected $route;
 	protected $params;

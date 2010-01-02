@@ -14,6 +14,9 @@ class Kohana_Twig_Extensions extends Twig_Extension
 	public function getFilters()
 	{
 		return array(
+			// Translation
+			'translate' => new Twig_Filter_Function('__'),
+			
 			// Date and time
 			'timestamp' => new Twig_Filter_Function('strtotime'),
 			'timesince' => new Twig_Filter_Function('Kohana_Twig_Filters::timesince'),

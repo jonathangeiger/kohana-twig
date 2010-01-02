@@ -13,8 +13,8 @@ return array
 	),
 	'extensions' => array
 	(
-		'Kohana_Twig_Extension_Trans',
 		'Twig_Extension_Escaper',
+		'Kohana_Twig_Extensions',
 	),
 	'auto_reload'    => TRUE,
 	'suffix'         => '.html',

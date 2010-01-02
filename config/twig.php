@@ -9,14 +9,14 @@ return array
 		'charset'             => 'utf-8',
 		'base_template_class' => 'Twig_Template',
 		'cache'               => APPPATH.'cache/twig',
-		'templates'           => APPPATH.'views/twig',
+		'auto_reload'         => TRUE,
 	),
 	'extensions' => array
 	(
 		'Twig_Extension_Escaper',
 		'Kohana_Twig_Extensions',
 	),
-	'auto_reload'    => TRUE,
+	'templates'      => APPPATH.'views',
 	'suffix'         => '.html',
 	'context_object' => TRUE,
 );

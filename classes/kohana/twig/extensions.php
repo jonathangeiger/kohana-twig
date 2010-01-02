@@ -1,4 +1,4 @@
-<?php
+<?php defined('SYSPATH') or die('No direct script access.');
 
 class Kohana_Twig_Extensions extends Twig_Extension
 {

@@ -1,4 +1,4 @@
-<?php
+<?php defined('SYSPATH') or die('No direct script access.');
 
 abstract class Kohana_Twig_Asset_TokenParser extends Twig_TokenParser
 {

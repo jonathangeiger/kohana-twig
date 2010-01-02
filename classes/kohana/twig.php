@@ -25,7 +25,7 @@ class Kohana_Twig {
 			Kohana_Twig::$config = Kohana::config('twig');
 
 			// Create the the loader
-			$loader = new Twig_Loader_Filesystem(Kohana_Twig::$config->templates, Kohana_Twig::$config->cache, Kohana_Twig::$config->auto_reload);
+			$loader = new Twig_Loader_Filesystem(Kohana_Twig::$config->templates);
 
 			// Set up Twig
 			Kohana_Twig::$instance = new Twig_Environment($loader, Kohana_Twig::$config->environment);

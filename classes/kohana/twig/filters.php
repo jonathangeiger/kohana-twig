@@ -3,19 +3,6 @@
 class Kohana_Twig_Filters
 {
 	/**
-	 * Returns a default value if the actual value is empty
-	 *
-	 * @param string $val 
-	 * @param string $default 
-	 * @return string
-	 * @author Jonathan Geiger
-	 */
-	public static function default($val, $default = NULL)
-	{
-		return (empty($val)) ? $default : $val;
-	}
-	
-	/**
 	 * Returns num::ordinal with the number prepended
 	 *
 	 * @param string $number 

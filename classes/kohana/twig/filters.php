@@ -2,11 +2,39 @@
 
 class Kohana_Twig_Filters
 {
+	/**
+	 * Returns a default value if the actual value is empty
+	 *
+	 * @param string $val 
+	 * @param string $default 
+	 * @return string
+	 * @author Jonathan Geiger
+	 */
+	public static function default($val, $default = NULL)
+	{
+		return (empty($val)) ? $default : $val;
+	}
+	
+	/**
+	 * Returns num::ordinal with the number prepended
+	 *
+	 * @param string $number 
+	 * @return string
+	 * @author Jonathan Geiger
+	 */
 	public static function ordinal($number)
 	{
 		return $number.num::ordinal($number);
 	}
 	
+	/**
+	 * Returns the time since a particular time
+	 *
+	 * @param string $older_date 
+	 * @param string $newer_date 
+	 * @return string
+	 * @author Jonathan Geiger
+	 */
 	public static function timesince($older_date, $newer_date = NULL)
 	{
 		// array of time period chunks

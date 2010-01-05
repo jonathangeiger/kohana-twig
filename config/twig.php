@@ -1,4 +1,4 @@
-<?php
+<?php defined('SYSPATH') or die('No direct script access.');
 
 return array
 (
@@ -8,15 +8,15 @@ return array
 		'trim_blocks'         => FALSE,
 		'charset'             => 'utf-8',
 		'base_template_class' => 'Twig_Template',
+		'cache'               => APPPATH.'cache/twig',
+		'auto_reload'         => TRUE,
 	),
 	'extensions' => array
 	(
-		'Kohana_Twig_Extension_Trans',
 		'Twig_Extension_Escaper',
+		'Kohana_Twig_Extensions',
 	),
-	'cache'          => APPPATH.'cache/twig',
-	'templates'      => APPPATH.'views/twig',
-	'auto_reload'    => TRUE,
+	'templates'      => APPPATH.'views',
 	'suffix'         => '.html',
 	'context_object' => TRUE,
 );

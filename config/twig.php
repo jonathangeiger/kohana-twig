@@ -18,5 +18,5 @@ return array
 	),
 	'templates'      => APPPATH.'views',
 	'suffix'         => '.html',
-	'context_object' => TRUE,
+	'context' 		 => 'Kohana_Twig_Context',
 );

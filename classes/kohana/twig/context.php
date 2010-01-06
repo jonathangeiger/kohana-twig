@@ -11,7 +11,7 @@ class Kohana_Twig_Context implements ArrayAccess
 	/**
 	 * @var array Global data, merged just before compilation
 	 */
-	protected static $global_data;
+	protected static $global_data = array();
 
 	/**
 	 * Sets a global variable, similar to the set() method.
@@ -57,7 +57,7 @@ class Kohana_Twig_Context implements ArrayAccess
 	/**
 	 * @var array Local data
 	 */
-	protected $data;
+	protected $data = array();
 	
 	/**
 	 * Constructor

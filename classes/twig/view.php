@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Kohana_Twig extends Kohana_Twig_Environment
+class Twig_View extends Kohana_Twig_View 
 {
-	
+
 }

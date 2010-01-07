@@ -10,17 +10,12 @@ abstract class Controller_Twig_Template extends Controller
 	/**
 	 * @var Twig_Environment
 	 */
-	protected $twig;
+	protected $twig = 'default';
 
 	/**
 	 * @var boolean  Auto-render template after controller method returns
 	 */
 	protected $auto_render = TRUE;
-
-	/**
-	 * @var object  Stores mapping of template vars => values
-	 */
-	protected $context;
 	
 	/**
 	 * @var string The template to render
@@ -35,34 +30,52 @@ abstract class Controller_Twig_Template extends Controller
 	 */
 	public function __construct(Request $request)
 	{
-		// Setup the Twig loader environment
-		$this->twig = Kohana_Twig::instance();
-
-		// Create the initial context object
-		$context = Kohana_Twig::$config->context;
-		$this->context = new $context;
-
-		// Auto-generate template filename ('index' method called on Controller_Admin_Users looks for 'admin/users/index')
-		$this->template = $request->controller.'/'.$request->action.Kohana_Twig::$config->suffix;
-
-		// Prepend directory if needed
-		if ( !empty($request->directory))
+		// Auto-generate template filename
+		if (empty($this->template))
 		{
-			$this->template = $request->directory.'/'.$this->template;
+			$this->template = $request->controller.'/'.$request->action;
+
+			// Prepend directory if needed
+			if (!empty($request->directory))
+			{
+				$this->template = $request->directory.'/'.$this->template;
+			}
+
+			// Convert underscores to slashes
+			$this->template = str_replace('_', '/', $this->template);
 		}
 		
-		// Convert underscores to slashes
-		$this->template = str_replace('_', '/', $this->template);
+		// Create the initial context object
+		$this->template = Twig_View::factory($this->template, $this->twig);
+		$this->twig = $this->template->environment();
 
 		parent::__construct($request);
 	}
 
+	/**
+	 * Renders the template if necessary
+	 *
+	 * @return void
+	 * @author Jonathan Geiger
+	 */
 	public function after()
 	{	
 		if ($this->auto_render)
 		{
+			// Search for a default context
+			$config = Kohana::config('context');
+			
+			if (isset($config[$this->request->uri]))
+			{
+				$this->template->set_default($config[$this->request->uri]);
+			}
+			else if (isset($config[$this->template->path()]))
+			{
+				$this->template->set_default($config[$this->template->path()]);
+			}
+			
 			// Auto-render the template
-			$this->request->response = $this->twig->loadTemplate($this->template)->render($this->context->as_array());
+			$this->request->response = $this->template->render();
 		}
 	}
 

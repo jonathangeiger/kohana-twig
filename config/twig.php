@@ -6,7 +6,7 @@ return array
 	(
 		'loader' => array
 		(
-			'class' => 'Twig_Loader_FileSystem',
+			'class' => 'Twig_Loader_Filesystem',
 			'templates' => APPPATH.'views',
 			'extension' => 'html',
 			'options' => array(),

@@ -11,6 +11,17 @@ class Kohana_Twig_Cache_TokenParser extends Twig_TokenParser
 		// Format of tag should be {% cache 'name' %}Example Text{% endcache %}
 		$key = $this->parser->getExpressionParser()->parseExpression();
 		
+		// Check for arguments for the route
+		if ($this->parser->getStream()->test(Twig_Token::OPERATOR_TYPE, ','))
+		{
+			$this->parser->getStream()->expect(Twig_Token::OPERATOR_TYPE, ',');
+			$lifetime = $this->parser->getExpressionParser()->parseExpression();
+		}
+		else
+		{
+			$lifetime = NULL;
+		}
+		
 		$this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
 
 		// Grab the body
@@ -18,7 +29,7 @@ class Kohana_Twig_Cache_TokenParser extends Twig_TokenParser
 
 		$this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
 
-		return new Kohana_Twig_Cache_Node($lineno, $this->getTag(), $key, $data);
+		return new Kohana_Twig_Cache_Node($lineno, $this->getTag(), $key, $lifetime, $data);
 	}
 
 	public function getTag()

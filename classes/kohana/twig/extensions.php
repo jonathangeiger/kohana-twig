@@ -1,7 +1,20 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
+/**
+ * Loads a default set of filters and extensions for 
+ * Twig based on Kohana helpers
+ *
+ * @package kohana-twig
+ * @author Jonathan Geiger
+ */
 class Kohana_Twig_Extensions extends Twig_Extension
 {
+	/**
+	 * Returns the added token parsers
+	 *
+	 * @return array
+	 * @author Jonathan Geiger
+	 */
 	public function getTokenParsers()
 	{
 		return array(
@@ -15,6 +28,12 @@ class Kohana_Twig_Extensions extends Twig_Extension
 		);
 	}
 	
+	/**
+	 * Returns the added filters
+	 *
+	 * @return array
+	 * @author Jonathan Geiger
+	 */
 	public function getFilters()
 	{
 		return array(
@@ -46,7 +65,11 @@ class Kohana_Twig_Extensions extends Twig_Extension
 			'bytes' => new Twig_Filter_Function('text::bytes'),
 		);
 	}
-
+	
+	/**
+	 * @return string
+	 * @author Jonathan Geiger
+	 */
 	public function getName()
 	{
 		return 'kohana_twig';

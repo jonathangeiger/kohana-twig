@@ -3,7 +3,7 @@
 /**
  * Twig Loader
  *
- * @package default
+ * @package kohana-twig
  * @author Jonathan Geiger
  */
 class Kohana_Twig_Environment

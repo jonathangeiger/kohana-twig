@@ -1,7 +1,18 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
+/**
+ * Token Parser for the asset tag
+ *
+ * @package kohana-twig
+ * @author Jonathan Geiger
+ */
 abstract class Kohana_Twig_Asset_TokenParser extends Twig_TokenParser
 {
+	/**
+	 * @param Twig_Token $token 
+	 * @return object
+	 * @author Jonathan Geiger
+	 */
 	public function parse(Twig_Token $token)
 	{
 		$lineno = $token->getLine();

@@ -1,10 +1,32 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
+/**
+ * Parses a {% url %} tag
+ *
+ * @package kohana-twig
+ * @author Jonathan Geiger
+ */
 class Kohana_Twig_Url_Node extends Twig_Node
 {
+	/**
+	 * The route to invoke
+	 * @var object
+	 */
 	protected $route;
+	
+	/**
+	 * Parameters to pass to the route
+	 * @var object
+	 */
 	protected $params;
 
+	/**
+	 * @param string $lineno 
+	 * @param string $tag 
+	 * @param string $route 
+	 * @param string $params 
+	 * @author Jonathan Geiger
+	 */
 	public function __construct($lineno, $tag, $route, $params = array())
 	{
 		parent::__construct($lineno);
@@ -13,6 +35,13 @@ class Kohana_Twig_Url_Node extends Twig_Node
 		$this->params = $params;
 	}
 
+	/**
+	 * Compiles the tag
+	 *
+	 * @param object $compiler 
+	 * @return void
+	 * @author Jonathan Geiger
+	 */
 	public function compile($compiler)
 	{
 		if ($this->params)

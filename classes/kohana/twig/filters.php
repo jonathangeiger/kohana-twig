@@ -1,5 +1,12 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
+/**
+ * This is a static class that houses code for a few filters 
+ * that aren't based directly off of Kohana helper methods
+ *
+ * @package kohana-twig
+ * @author Jonathan Geiger
+ */
 class Kohana_Twig_Filters
 {
 	/**

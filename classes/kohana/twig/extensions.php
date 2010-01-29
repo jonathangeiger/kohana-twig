@@ -5,6 +5,8 @@ class Kohana_Twig_Extensions extends Twig_Extension
 	public function getTokenParsers()
 	{
 		return array(
+			new Kohana_Twig_HTML_TokenParser(),
+			new Kohana_Twig_Form_TokenParser(),
 			new Kohana_Twig_URL_TokenParser(),
 			new Kohana_Twig_Cache_TokenParser(),
 			new Kohana_Twig_Partial_TokenParser(),
@@ -30,7 +32,7 @@ class Kohana_Twig_Extensions extends Twig_Extension
 			'humanize' => new Twig_Filter_Function('inflector::humanize'),
 			
 			// HTML 
-			'obfuscate' => new Twig_Filter_Function('html::obfuscate'),
+			'obfuscate' => new Twig_Filter_Function('html::obfuscate'),			
 			
 			// Numbers
 			'ordinal' => new Twig_Filter_Function('Kohana_Twig_Filters::ordinal'),

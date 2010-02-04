@@ -231,8 +231,11 @@ class Kohana_Twig_View
 		// or some other method seems like it could miss some edge-cases
 		$pathinfo = pathinfo($this->file);
 		
-		// Chomp off any extension at the end
-		$this->file = $pathinfo['dirname'].'/'.$pathinfo['filename'];
+		if (isset($pathinfo['dirname']) && isset($pathinfo['filename']))
+		{
+			// Chomp off any extension at the end
+			$this->file = $pathinfo['dirname'].'/'.$pathinfo['filename'];
+		}
 		
 		// Save this for later
 		$this->extension = $extension;

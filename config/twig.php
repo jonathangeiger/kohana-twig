@@ -6,8 +6,7 @@ return array
 	(
 		'loader' => array
 		(
-			'class' => 'Twig_Loader_Filesystem',
-			'templates' => APPPATH.'views',
+			'class' => 'Twig_Loader_Kohana',
 			'extension' => 'html',
 			'options' => array(),
 		),

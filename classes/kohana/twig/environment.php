@@ -26,10 +26,9 @@ class Kohana_Twig_Environment
 			
 			// Create the the loader
 			$loader = $config['loader']['class'];
-			$templates = $config['loader']['templates'];
 			$options = $config['loader']['options'];
 			
-			$loader = new $loader($templates, $options);
+			$loader = new $loader($options);
 
 			// Set up the instance
 			$twig = $instances[$env] = new Twig_Environment($loader, $config['environment']);

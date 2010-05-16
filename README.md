@@ -29,3 +29,26 @@ Installation
 2. `git submodule update --init`
 3. Enable twig in your bootstrap.php file
 4. Extend the Controller\_Twig\_Template
+
+Usage
+-----
+
+Pretty similar to using the Controller\_Template class.
+
+    class Controller_Example extends Controller\_Twig\_Template
+    {
+      // Template names are generated automatically if not specified. So this
+      // action would map to: example/index.html
+      public function action\_index()
+      {
+        $this->template->variable = "Hello World";
+      }
+    }
+
+Not Happy?
+---------
+
+Either [file a bug report](http://github.com/ThePixelDeveloper/kohana-twig/issues)
+or try an alternative project:
+
+* [kotwig](http://github.com/Burgestrand/kotwig) by [Burgestrand](http://github.com/Burgestrand)

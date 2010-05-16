@@ -6,12 +6,12 @@
  * @package kohana-twig
  * @author Jonathan Geiger
  */
-class Kohana_Twig_View
+abstract class Kohana_Twig_View
 {
 	/**
 	 * @var array Global data, merged just before compilation
 	 */
-	protected static $global_data = array();
+	protected static $_global_data = array();
 	
 	/**
 	 * Factory for Twig_Views
@@ -49,12 +49,12 @@ class Kohana_Twig_View
 		{
 			foreach ($key as $key2 => $value)
 			{
-				Twig_View::$global_data[$key2] = $value;
+				Twig_View::$_global_data[$key2] = $value;
 			}
 		}
 		else
 		{
-			Twig_View::$global_data[$key] = $value;
+			Twig_View::$_global_data[$key] = $value;
 		}
 	}
 
@@ -67,28 +67,28 @@ class Kohana_Twig_View
 	 */
 	public static function bind_global($key, & $value)
 	{
-		Twig_View::$global_data[$key] =& $value;
+		Twig_View::$_global_data[$key] =& $value;
 	}
 	
 	/**
 	 * @var string The file to render
 	 */
-	protected $file;
+	protected $_file;
 	
 	/**
 	 * @var string The extension of the file
 	 */
-	protected $extension;
+	protected $_extension;
 	
 	/**
 	 * @var array Local data
 	 */
-	protected $data = array();
+	protected $_data = array();
 	
 	/**
 	 * @var string The environment the view is attached to
 	 */
-	protected $environment;
+	protected $_environment;
 	
 	/**
 	 * Constructor
@@ -113,19 +113,19 @@ class Kohana_Twig_View
 		if ($data !== NULL)
 		{
 			// Add the values to the current data
-			$this->data = $data + $this->data;
+			$this->_data = $data + $this->_data;
 		}
 		
 		// Allow passing a Twig_Environment
 		if ($env instanceof Twig_Environment == FALSE)
 		{
 			// Load the default extension from the config
-			$this->extension = Kohana::config('twig.'.$env.'.loader.extension');
+			$this->_extension = Kohana::config('twig.'.$env.'.loader.extension');
 			
 			$env = Kohana_Twig::instance($env);
 		}
 		
-		$this->environment = $env;
+		$this->_environment = $env;
 	}
 	
 	/**
@@ -159,7 +159,7 @@ class Kohana_Twig_View
 	 */
 	public function __isset($key)
 	{
-		return (isset($this->data[$key]) OR isset(Twig_View::$global_data[$key]));
+		return (isset($this->_data[$key]) OR isset(Twig_View::$_global_data[$key]));
 	}
 
 	/**
@@ -170,7 +170,7 @@ class Kohana_Twig_View
 	 */
 	public function __unset($key)
 	{
-		unset($this->data[$key], Twig_View::$global_data[$key]);
+		unset($this->_data[$key], Twig_View::$_global_data[$key]);
 	}
 	
 	/**
@@ -204,7 +204,7 @@ class Kohana_Twig_View
 	public function set_filename($file)
 	{
 		// Store the file path locally
-		$this->file = $file;
+		$this->_file = $file;
 		
 		// Split apart at the extension if necessary
 		if ($extension = pathinfo($file, PATHINFO_EXTENSION))
@@ -229,16 +229,16 @@ class Kohana_Twig_View
 		
 		// Use this for regenerating the path, using substr 
 		// or some other method seems like it could miss some edge-cases
-		$pathinfo = pathinfo($this->file);
+		$pathinfo = pathinfo($this->_file);
 		
 		if (isset($pathinfo['dirname']) && isset($pathinfo['filename']))
 		{
 			// Chomp off any extension at the end
-			$this->file = $pathinfo['dirname'].'/'.$pathinfo['filename'];
+			$this->_file = $pathinfo['dirname'].'/'.$pathinfo['filename'];
 		}
 		
 		// Save this for later
-		$this->extension = $extension;
+		$this->_extension = $extension;
 		
 		return $this;
 	}
@@ -251,7 +251,7 @@ class Kohana_Twig_View
 	 */
 	public function filename()
 	{
-		return $this->file;
+		return $this->_file;
 	}
 	
 	/**
@@ -262,7 +262,7 @@ class Kohana_Twig_View
 	 */
 	public function extension()
 	{
-		return $this->extension;
+		return $this->_extension;
 	}
 	
 	/**
@@ -273,13 +273,13 @@ class Kohana_Twig_View
 	 */
 	public function path()
 	{
-		if ($this->extension)
+		if ($this->_extension)
 		{
-			return $this->file.'.'.$this->extension;
+			return $this->_file.'.'.$this->_extension;
 		}
 		else
 		{
-			return $this->file;
+			return $this->_file;
 		}
 	}
 
@@ -291,7 +291,7 @@ class Kohana_Twig_View
 	 */
 	public function as_array()
 	{
-		return $this->data + Twig_View::$global_data;
+		return $this->_data + Twig_View::$_global_data;
 	}
 	
 	/**
@@ -302,7 +302,7 @@ class Kohana_Twig_View
 	 */
 	public function environment()
 	{
-		return $this->environment;
+		return $this->_environment;
 	}
 	
 	/**
@@ -314,13 +314,13 @@ class Kohana_Twig_View
 	 */
 	public function &get($key, $default = NULL)
 	{
-		if (isset($this->data[$key]))
+		if (isset($this->_data[$key]))
 		{
-			return $this->data[$key];
+			return $this->_data[$key];
 		}
-		elseif (isset(Twig_View::$global_data[$key]))
+		elseif (isset(Twig_View::$_global_data[$key]))
 		{
-			return Twig_View::$global_data[$key];
+			return Twig_View::$_global_data[$key];
 		}
 		else
 		{
@@ -350,12 +350,12 @@ class Kohana_Twig_View
 		{
 			foreach ($key as $name => $value)
 			{
-				$this->data[$name] = $value;
+				$this->_data[$name] = $value;
 			}
 		}
 		else
 		{
-			$this->data[$key] = $value;
+			$this->_data[$key] = $value;
 		}
 
 		return $this;
@@ -376,7 +376,7 @@ class Kohana_Twig_View
 	 */
 	public function bind($key, & $value)
 	{
-		$this->data[$key] =& $value;
+		$this->_data[$key] =& $value;
 
 		return $this;
 	}
@@ -398,9 +398,9 @@ class Kohana_Twig_View
 		
 		foreach ($data as $key => $value)
 		{
-			if (!isset($this->data[$key]))
+			if (!isset($this->_data[$key]))
 			{
-				$this->data[$key] = $value;
+				$this->_data[$key] = $value;
 			}
 		}
 
@@ -417,9 +417,9 @@ class Kohana_Twig_View
 	 */
 	public function bind_default($key, &$value)
 	{
-		if (!isset($this->data[$key]))
+		if (!isset($this->_data[$key]))
 		{
-			$this->data[$key] =& $value;
+			$this->_data[$key] =& $value;
 		}
 
 		return $this;
@@ -443,12 +443,12 @@ class Kohana_Twig_View
 			$this->set_filename($file);
 		}
 		
-		if (empty($this->file))
+		if (empty($this->_file))
 		{
 			throw new Kohana_View_Exception('You must set the file to use within your view before rendering');
 		}
 		
 		// Combine local and global data and capture the output
-		return $this->environment->loadTemplate($this->path())->render($this->as_array());
+		return $this->_environment->loadTemplate($this->path())->render($this->as_array());
 	}
 }

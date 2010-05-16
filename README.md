@@ -35,11 +35,11 @@ Usage
 
 Pretty similar to using the Controller\_Template class.
 
-    class Controller_Example extends Controller\_Twig\_Template
+    class Controller_Example extends Controller_Twig_Template
     {
       // Template names are generated automatically if not specified. So this
       // action would map to: example/index.html
-      public function action\_index()
+      public function action_index()
       {
         $this->template->variable = "Hello World";
       }

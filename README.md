@@ -28,7 +28,7 @@ Installation
 1. `git submodule add https://ThePixelDeveloper@github.com/ThePixelDeveloper/kohana-twig.git modules/twig`
 2. `git submodule update --init`
 3. Enable twig in your bootstrap.php file
-4. Extend the Controller\_Twig\_Template
+4. Extend the Controller\_Template\_Twig
 
 Usage
 -----

@@ -63,6 +63,8 @@ class Kohana_Twig_Extensions extends Twig_Extension
 			'auto_link' => new Twig_Filter_Function('text::auto_link'),
 			'auto_p' => new Twig_Filter_Function('text::auto_p'),
 			'bytes' => new Twig_Filter_Function('text::bytes'),
+
+			'urltitle' => new Twig_Filter_Function('url::title'),
 		);
 	}
 	

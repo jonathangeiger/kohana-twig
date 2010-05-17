@@ -5,7 +5,7 @@
  * @package    Kohana-Twig
  * @author     John Heathco <jheathco@gmail.com>
  */
-abstract class Kohana_Controller_Twig_Template extends Controller
+abstract class Kohana_Controller_Template_Twig extends Controller
 {
 	/**
 	 * @var Twig_Environment
@@ -18,7 +18,7 @@ abstract class Kohana_Controller_Twig_Template extends Controller
 	public $auto_render = TRUE;
 
 	/**
-	 * @var Twig_View
+	 * @var Twig
 	 */
 	public $template;
 
@@ -38,7 +38,7 @@ abstract class Kohana_Controller_Twig_Template extends Controller
 		if ($this->auto_render)
 		{
 			// Load the twig template.
-			$this->template = Twig_View::factory($this->template, $this->environment);
+			$this->template = Twig::factory($this->template, $this->environment);
 
 			// Return the twig environment
 			$this->environment = $this->template->environment();

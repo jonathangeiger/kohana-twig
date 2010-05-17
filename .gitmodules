@@ -1,3 +1,0 @@
-[submodule "vendor/Twig"]
-	path = vendor/Twig
-	url = git://github.com/ThePixelDeveloper/Twig.git

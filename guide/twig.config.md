@@ -6,7 +6,7 @@ Name                | Description
 --------------------|------------------------------------------
 debug               | Allow the use of the `{% debug %}` block
 trim_blocks         | Will remove new lines after a block (mimic PHP behaviour)
-charset             | Self explanatory
+charset             | The charset to use for templates
 base_template_class | Template name to use in the compiled classes
 cache               | 1. **null** : Will create a directory under the system /tmp directory
                     | 2. **false** : Turn off caching all-together
@@ -45,9 +45,11 @@ Name      | Description
 ----------|------------------------------------------
 class     | Used to load the template files. Should implement the `Twig_LoaderInterface` interface
 extension | Template extension, default is html
-options   | Array of options passed the loader `__construct`
+options   | Array of options passed the to loader `__construct()`
 
 
 #### Extensions
 
-The extensions item is just an array of extension class names. 
+The extensions item is just an array of extension class names. You can create 
+your own extensions and add them to this array to make them available to your 
+twig templates.

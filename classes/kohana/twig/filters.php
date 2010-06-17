@@ -42,11 +42,12 @@ class Kohana_Twig_Filters
 		);
 		
 		// Convert to a unix timestamp
-		$older_date = strtotime($older_date);
+		$older_date = !is_numeric($older_date) ? strtotime($older_date) : $older_date;
 
 		// $newer_date will equal false if we want to know the time elapsed between a date and the current time
 		// $newer_date will have a value if we want to work out time elapsed between two known dates
-		$newer_date = ($newer_date == false) ? time() : strtotime($newer_date);
+		$newer_date = ($newer_date == false) ? time() : $newer_date;
+		$newer_date = !is_numeric($newer_date) ? strtotime($newer_date) : $newer_date;
 
 		// difference in seconds
 		$since = $newer_date - $older_date;

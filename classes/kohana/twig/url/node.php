@@ -21,21 +21,6 @@ class Kohana_Twig_Url_Node extends Twig_Node
 	protected $params;
 
 	/**
-	 * @param string $lineno 
-	 * @param string $tag 
-	 * @param string $route 
-	 * @param string $params 
-	 * @author Jonathan Geiger
-	 */
-	public function __construct($lineno, $tag, $route, $params = array())
-	{
-		parent::__construct($lineno);
-
-		$this->route = $route;
-		$this->params = $params;
-	}
-
-	/**
 	 * Compiles the tag
 	 *
 	 * @param object $compiler 

@@ -32,7 +32,7 @@ abstract class Kohana_Twig_Helper_TokenParser extends Twig_TokenParser
 		}
 		else
 		{
-			$params = $args[1];
+			$params = $params[1];
 		}
 				
 		$this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);

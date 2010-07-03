@@ -15,7 +15,7 @@
  * 
  * @package kohana-twig
  */
-class Twig_TokenParser_Trans extends Twig_TokenParser
+class Kohana_Twig_Trans_TokenParser extends Twig_TokenParser
 {
 	/**
 	 * Parses a token and returns a node.
@@ -45,7 +45,7 @@ class Twig_TokenParser_Trans extends Twig_TokenParser
 		$this->check_trans_string($body, $lineno);
 		
 		// Pass it off to the compiler
-		return new Twig_Node_Trans(array('body' => $body), array(), $lineno, $this->getTag());
+		return new Kohana_Twig_Trans_Node(array('body' => $body), array(), $lineno, $this->getTag());
 	}
 
 	/**

@@ -22,6 +22,7 @@ class Kohana_Twig_Extensions extends Twig_Extension
 			new Kohana_Twig_Form_TokenParser(),
 			new Kohana_Twig_URL_TokenParser(),
 			new Kohana_Twig_Cache_TokenParser(),
+			new Kohana_Twig_Trans_TokenParser(),
 		);
 	}
 	
@@ -36,6 +37,7 @@ class Kohana_Twig_Extensions extends Twig_Extension
 		return array(
 			// Translation
 			'translate' => new Twig_Filter_Function('__'),
+			'trans' => new Twig_Filter_Function('__'),
 			
 			// Date and time
 			'timestamp' => new Twig_Filter_Function('strtotime'),

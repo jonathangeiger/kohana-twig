@@ -1,25 +1,23 @@
-# Custom Blocks
+# Custom Tags and Filters
 
-The modules comes with a few pre-made blocks.
+This module comes with a few custom filters and tags that aim to integrate Kohana and Twig.
 
+### `html` and `form`
 
-### html
-
-Allows you to use the html helper in the following format
+Allows you to use the html and form helpers in the following format.
 
 	{% html.anchor "http://google.com", "Google" %}
+	=> <a href="http://google.com">Google</a>
+	
+	{% form.input "first_name" %}
+	=> <input type="text" name="first_name" />
 
-All html helper functions are available and take arguments as you would expect.
+All html and form helper functions are available and take arguments as you would expect.
 
-### form
-
-The same as the html helper, just replace `html` with `form` and `anchor` with a form
-function
-
-### cache
+### `cache`
 
 This makes use of the Kohana fragment cache and provides a simplified interface
-for creating cachable blocks of content.
+for creating cacheable blocks of content.
 
 	{% cache "key" %}
 		This will be cached.
@@ -28,30 +26,19 @@ for creating cachable blocks of content.
 You can also pass a lifetime value in seconds as the second argument.
 
 	{% cache "key", 3600 %}
-		This will be cached.
+		This will be cached for one hour.
 	{% endcache %}
 
-Will be cached for one hour.
+### `url`
 
-### url
+The url tag is a way to generate URIs from your routes. The first argument is the 
+route name and the second is a `key:value` array.
 
-Use reverse routing in your templates.
+	{% url "default", ["action": "register"] %}
+	=> 	http://example.com/welcome/register
 
-	{% url "default", ["action":"register"] %}
-
-The first argument is the route name and the second is a key:value array. So the above
-would produce:
-
-	http://example.com/welcome/register
-
-You can set certain keys to `null` so the route will use the default segment in
-the bootstrap.php or init.php files. If we wanted to remove `welcome` for example:
-
-	{% url "default", ["controller":null,"action":"register"] %}
-
-would produce:
-
-	http://example.com/register
+As shown above, you can also omit optional keys to so the route will use its default segment. 
+Notice that we didn't specify a controller above, and the default—`welcome`—was used.
 
 #### Generating links
 

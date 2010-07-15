@@ -25,24 +25,7 @@ class Kohana_Twig_Cache_Node extends Twig_Node
 	 * @var object
 	 */
 	protected $lifetime;
-
-	/**
-	 * @param string $lineno 
-	 * @param string $tag 
-	 * @param string $key 
-	 * @param string $lifetime 
-	 * @param string $data 
-	 * @author Jonathan Geiger
-	 */
-	public function __construct($lineno, $tag, $key, $lifetime, $data)
-	{
-		parent::__construct($lineno);
-
-		$this->key = $key;
-		$this->data = $data;
-		$this->lifetime = $lifetime;
-	}
-
+	
 	/**
 	 * @param object $compiler 
 	 * @return void

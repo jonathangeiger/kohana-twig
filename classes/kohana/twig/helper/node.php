@@ -27,22 +27,6 @@ class Kohana_Twig_Helper_Node extends Twig_Node
 	protected $params;
 
 	/**
-	 * @param string $lineno 
-	 * @param string $tag 
-	 * @param string $method 
-	 * @param string $params 
-	 * @author Jonathan Geiger
-	 */
-	public function __construct($lineno, $tag, $method, $params = array())
-	{
-		parent::__construct($lineno);
-
-		$this->tag = $tag;
-		$this->method = $method;
-		$this->params = $params;
-	}
-
-	/**
 	 * @param object $compiler 
 	 * @return void
 	 * @author Jonathan Geiger

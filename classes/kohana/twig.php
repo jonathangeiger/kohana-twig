@@ -372,50 +372,6 @@ abstract class Kohana_Twig
 	}
 	
 	/**
-	 * Allows setting default data that will not overwrite 
-	 * anything in $this->data.
-	 *
-	 * @param	string	 variable name or an array of variables
-	 * @param	mixed	 value
-	 * @return	View
-	 */
-	public function set_default($data, $value = NULL)
-	{
-		if (!is_array($data))
-		{
-			$data = array($data => $value);
-		}
-		
-		foreach ($data as $key => $value)
-		{
-			if (!isset($this->_data[$key]))
-			{
-				$this->_data[$key] = $value;
-			}
-		}
-
-		return $this;
-	}
-	
-	/**
-	 * Assigns a value by reference without overwriting 
-	 * any already defined keys. See $this->bind()
-	 *
-	 * @param	string	 variable name
-	 * @param	mixed	 referenced variable
-	 * @return	View
-	 */
-	public function bind_default($key, &$value)
-	{
-		if (!isset($this->_data[$key]))
-		{
-			$this->_data[$key] =& $value;
-		}
-
-		return $this;
-	}
-	
-	/**
 	 * Renders the view object to a string. Global and local data are merged
 	 * and extracted to create local variables within the view file.
 	 *

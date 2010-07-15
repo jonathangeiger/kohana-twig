@@ -40,7 +40,8 @@ class Kohana_Twig_Cache_TokenParser extends Twig_TokenParser
 
 		$this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
 
-		return new Kohana_Twig_Cache_Node($lineno, $this->getTag(), $key, $lifetime, $data);
+		return new Kohana_Twig_Cache_Node(array(
+			'key' => $key, 'lifetime' => $lifetime, 'data' => $data), array(), $lineno, $this->getTag());
 	}
 
 	/**

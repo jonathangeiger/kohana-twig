@@ -23,6 +23,7 @@ class Kohana_Twig_Extensions extends Twig_Extension
 			new Kohana_Twig_URL_TokenParser(),
 			new Kohana_Twig_Cache_TokenParser(),
 			new Kohana_Twig_Trans_TokenParser(),
+			new Kohana_Twig_Request_TokenParser(),
 		);
 	}
 	

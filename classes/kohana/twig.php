@@ -181,7 +181,17 @@ abstract class Kohana_Twig
 	 */
 	public function __toString()
 	{
-		return $this->render();
+		try
+		{
+			return $this->render();
+		}
+		catch (Exception $e)
+		{
+			// Display the exception message
+			Kohana::exception_handler($e);
+
+			return '';
+		}
 	}
 	
 	/**

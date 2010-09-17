@@ -71,7 +71,7 @@ class Kohana_Twig_Filters
 		}
 
 		// set output var
-		$output = ($count == 1) ? '1 '.$name : "$count {$name}s";
+		$output = ($count == 1) ? '1 '.$name : $count.' '.$name.__('s');
 
 		// step two: the second chunk
 		if ($i + 1 < $j)
@@ -82,7 +82,7 @@ class Kohana_Twig_Filters
 			if (($count2 = floor(($since - ($seconds * $count)) / $seconds2)) != 0)
 			{
 				// add to output var
-				$output .= ($count2 == 1) ? ', 1 '.$name2 : ", $count2 {$name2}s";
+				$output .= ($count2 == 1) ? ', 1 '.$name2 : ', '.$count2.' '.$name2.__('s');
 			}
 		}
 

@@ -33,12 +33,12 @@ class Kohana_Twig_Filters
 	{
 		// array of time period chunks
 		$chunks = array(
-			array(60 * 60 * 24 * 365 , 'year'),
-			array(60 * 60 * 24 * 30 , 'month'),
-			array(60 * 60 * 24 * 7, 'week'),
-			array(60 * 60 * 24 , 'day'),
-			array(60 * 60 , 'hour'),
-			array(60 , 'minute'),
+			array(60 * 60 * 24 * 365 , __('year')),
+			array(60 * 60 * 24 * 30 ,  __('month')),
+			array(60 * 60 * 24 * 7,  __('week')),
+			array(60 * 60 * 24 ,  __('day')),
+			array(60 * 60 ,  __('hour')),
+			array(60 ,  __('minute')),
 		);
 		
 		// Convert to a unix timestamp

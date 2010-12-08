@@ -11,12 +11,6 @@
 class Kohana_Twig_Request_Node extends Twig_Node
 {
 	/**
-	 * The URI to request
-	 * @var object
-	 */
-	protected $uri;
-
-	/**
 	 * Compiles the tag
 	 *
 	 * @param object $compiler 
@@ -28,7 +22,7 @@ class Kohana_Twig_Request_Node extends Twig_Node
 		// Render weee
 		$compiler
 			->write('echo Request::Factory(')
-			->subcompile($this->uri)
+			->subcompile($this->getNode('uri'))
 			->write(')->execute()->response')
 			->raw(";\n");
 	}

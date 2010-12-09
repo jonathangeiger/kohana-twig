@@ -33,12 +33,12 @@ class Kohana_Twig_Filters
 	{
 		// array of time period chunks
 		$chunks = array(
-			array(60 * 60 * 24 * 365 , 'year'),
-			array(60 * 60 * 24 * 30 , 'month'),
-			array(60 * 60 * 24 * 7, 'week'),
-			array(60 * 60 * 24 , 'day'),
-			array(60 * 60 , 'hour'),
-			array(60 , 'minute'),
+			array(60 * 60 * 24 * 365 , __('year')),
+			array(60 * 60 * 24 * 30 ,  __('month')),
+			array(60 * 60 * 24 * 7,  __('week')),
+			array(60 * 60 * 24 ,  __('day')),
+			array(60 * 60 ,  __('hour')),
+			array(60 ,  __('minute')),
 		);
 		
 		// Convert to a unix timestamp
@@ -71,7 +71,7 @@ class Kohana_Twig_Filters
 		}
 
 		// set output var
-		$output = ($count == 1) ? '1 '.$name : "$count {$name}s";
+		$output = ($count == 1) ? '1 '.$name : $count.' '.$name.__('s');
 
 		// step two: the second chunk
 		if ($i + 1 < $j)
@@ -82,7 +82,7 @@ class Kohana_Twig_Filters
 			if (($count2 = floor(($since - ($seconds * $count)) / $seconds2)) != 0)
 			{
 				// add to output var
-				$output .= ($count2 == 1) ? ', 1 '.$name2 : ", $count2 {$name2}s";
+				$output .= ($count2 == 1) ? ', 1 '.$name2 : ', '.$count2.' '.$name2.__('s');
 			}
 		}
 

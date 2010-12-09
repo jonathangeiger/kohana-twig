@@ -9,24 +9,6 @@
 class Kohana_Twig_Helper_Node extends Twig_Node
 {
 	/**
-	 * The name of the class
-	 * @var object
-	 */
-	protected $tag;
-	
-	/**
-	 * The method to be invoked on the class
-	 * @var object
-	 */
-	protected $method;
-	
-	/**
-	 * Any params to be passed to the class
-	 * @var array
-	 */
-	protected $params;
-
-	/**
 	 * @param object $compiler 
 	 * @return void
 	 * @author Jonathan Geiger
@@ -35,11 +17,11 @@ class Kohana_Twig_Helper_Node extends Twig_Node
 	{
 		// Output the route
 		$compiler
-			->write('echo '.$this->tag.'::'.$this->method->getValue().'(');
+			->write('echo '.$this->getNode('tag').'::'.$this->getNode('method')->getValue().'(');
 			
 		// I suppose this is how you compile multiexpressions?
-		$count = count($this->params) - 1;
-		foreach ($this->params as $i => $param)
+		$count = count($this->getNode('params')) - 1;
+		foreach ($this->getNode('params') as $i => $param)
 		{
 			$compiler->subcompile($param);
 			

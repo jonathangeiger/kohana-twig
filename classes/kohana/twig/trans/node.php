@@ -19,7 +19,7 @@ class Kohana_Twig_Trans_Node extends Twig_Node
 	{
 		$compiler->addDebugInfo($this);
 
-		list($msg, $vars) = $this->compileString($this->body);
+		list($msg, $vars) = $this->compileString($this->getNode('body'));
 
 		$compiler
 			->write('echo __(trim(')

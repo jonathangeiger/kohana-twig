@@ -35,14 +35,14 @@ class Kohana_Twig_Cache_Node extends Twig_Node
 	{
 		$compiler
 			->write('if (!fragment::load(')
-			->subcompile($this->key);
+			->subcompile($this->getNode('key'));
 		
 		// Lifetime will be false if it wasn't parsed
 		if ($this->lifetime)
 		{
 			$compiler 
 				->write(', ')
-				->subcompile($this->lifetime)
+				->subcompile($this->getNode('lifetime'))
 				->write(')) {');
 		}
 		else
@@ -53,7 +53,7 @@ class Kohana_Twig_Cache_Node extends Twig_Node
 			
 		$compiler
 			->raw("\n")
-			->subcompile($this->data)
+			->subcompile($this->getNode('data'))
 			->raw("\n")
 			->write('fragment::save();')
 			->raw("\n}\n");

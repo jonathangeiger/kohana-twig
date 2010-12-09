@@ -21,9 +21,9 @@ class Kohana_Twig_URL_TokenParser extends Twig_TokenParser
 		$route = $this->parser->getExpressionParser()->parseExpression();
 
 		// Check for arguments for the route
-		if ($this->parser->getStream()->test(Twig_Token::OPERATOR_TYPE, ','))
+		if ($this->parser->getStream()->test(Twig_Token::PUNCTUATION_TYPE, ','))
 		{
-			$this->parser->getStream()->expect(Twig_Token::OPERATOR_TYPE, ',');
+			$this->parser->getStream()->expect(Twig_Token::PUNCTUATION_TYPE, ',');
 			$params = $this->parser->getExpressionParser()->parseExpression();
 		}
 		else

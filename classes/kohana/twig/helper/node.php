@@ -15,24 +15,28 @@ class Kohana_Twig_Helper_Node extends Twig_Node
 	 */
 	public function compile($compiler)
 	{
-		// Output the route
-		$compiler
-			->write('echo '.$this->getNode('tag').'::'.$this->getNode('method')->getValue().'(');
-			
-		// I suppose this is how you compile multiexpressions?
-		$count = count($this->getNode('params')) - 1;
-		foreach ($this->getNode('params') as $i => $param)
+		$params = $this->getNode('expression')->getIterator();
+	
+		// Output the route		
+		$compiler->write('echo '.$this->getNodeTag().'::'.$this->getAttribute('method').'(');
+		
+		if ($params->count() > 1)
 		{
-			$compiler->subcompile($param);
-			
-			if ($count != $i)
-			{
-				$compiler->write(',');
+			foreach($params as $i => $row)
+			{ 
+				$compiler->subcompile($row);
+				
+				if (($params->count() - 1) !== $i)
+				{
+					$compiler->write(',');
+				}
 			}
 		}
-			
-		$compiler
-			->write(')')
-			->raw(";\n");
+		else
+		{
+			$compiler->subcompile($this->getNode('expression'));
+		}
+		
+		$compiler->write(')')->raw(';');
 	}
 }

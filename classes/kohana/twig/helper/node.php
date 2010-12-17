@@ -20,21 +20,14 @@ class Kohana_Twig_Helper_Node extends Twig_Node
 		// Output the route		
 		$compiler->write('echo '.$this->getNodeTag().'::'.$this->getAttribute('method').'(');
 		
-		if ($params->count() > 1)
+		foreach($params as $i => $row)
 		{
-			foreach($params as $i => $row)
-			{ 
-				$compiler->subcompile($row);
-				
-				if (($params->count() - 1) !== $i)
-				{
-					$compiler->write(',');
-				}
+			$compiler->subcompile($row);
+
+			if (($params->count() - 1) !== $i)
+			{
+				$compiler->write(',');
 			}
-		}
-		else
-		{
-			$compiler->subcompile($this->getNode('expression'));
 		}
 		
 		$compiler->write(')')->raw(';');

@@ -38,15 +38,15 @@ class Kohana_Twig_Environment
 			}
 
 			// Add the sandboxing extension.
-			$policy = new Twig_Sandbox_SecurityPolicy
-			(
-				$config['sandboxing']['tags'],
-				$config['sandboxing']['filters'],
-				$config['sandboxing']['methods'],
-				$config['sandboxing']['properties']
-			);
-
-			$twig->addExtension(new Twig_Extension_Sandbox($policy, $config['sandboxing']['global']));
+//			$policy = new Twig_Sandbox_SecurityPolicy
+//			(
+//				$config['sandboxing']['tags'],
+//				$config['sandboxing']['filters'],
+//				$config['sandboxing']['methods'],
+//				$config['sandboxing']['properties']
+//			);
+//
+//			$twig->addExtension(new Twig_Extension_Sandbox($policy, $config['sandboxing']['global']));
 		}
 
 		return $instances[$env];

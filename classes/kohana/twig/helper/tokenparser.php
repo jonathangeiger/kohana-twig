@@ -26,6 +26,6 @@ abstract class Kohana_Twig_Helper_TokenParser extends Twig_TokenParser
 		
 		$this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
 		
-		return new Kohana_Twig_Helper_Node(array('expression' => $params[1]), array('method' => $method), $lineno, $this->getTag());
+		return new Kohana_Twig_Helper_Node(array('expression' => $params), array('method' => $method), $lineno, $this->getTag());
 	} 
 }

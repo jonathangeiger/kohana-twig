@@ -17,7 +17,7 @@ class Kohana_Twig_Request_Node extends Twig_Node
 	 * @return void
 	 * @author MasterCJ
 	 */
-	public function compile($compiler)
+	public function compile(Twig_Compiler $compiler)
 	{
 		// Render weee
 		$compiler

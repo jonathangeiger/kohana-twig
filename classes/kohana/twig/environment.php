@@ -38,15 +38,24 @@ class Kohana_Twig_Environment
 			}
 
 			// Add the sandboxing extension.
-			$policy = new Twig_Sandbox_SecurityPolicy
-			(
-				$config['sandboxing']['tags'],
-				$config['sandboxing']['filters'],
-				$config['sandboxing']['methods'],
-				$config['sandboxing']['properties']
-			);
+			// The sandbox seems buggy
+			// So this dummy condition is there to avoid the bug
+			// The error thrown is "Twig_Sandbox_SecurityError [ 0 ]: Calling "__toString" method on a "Twig" object is not allowed."
+			if(	!empty($config['sandboxing']['tags'])
+				&& !empty($config['sandboxing']['filters'])
+				&& !empty($config['sandboxing']['methods'])
+				&& !empty($config['sandboxing']['properties'])
+			) {
+				$policy = new Twig_Sandbox_SecurityPolicy
+				(
+					$config['sandboxing']['tags'],
+					$config['sandboxing']['filters'],
+					$config['sandboxing']['methods'],
+					$config['sandboxing']['properties']
+				);
 
-			$twig->addExtension(new Twig_Extension_Sandbox($policy, $config['sandboxing']['global']));
+				$twig->addExtension(new Twig_Extension_Sandbox($policy, $config['sandboxing']['global']));
+			}
 		}
 
 		return $instances[$env];

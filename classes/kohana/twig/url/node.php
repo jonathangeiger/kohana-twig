@@ -15,7 +15,7 @@ class Kohana_Twig_Url_Node extends Twig_Node
 	 * @return void
 	 * @author Jonathan Geiger
 	 */
-	public function compile($compiler)
+	public function compile(Twig_Compiler $compiler)
 	{
 		if ($this->getNode('params'))
 		{

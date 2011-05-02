@@ -13,7 +13,7 @@ class Kohana_Twig_Helper_Node extends Twig_Node
 	 * @return void
 	 * @author Jonathan Geiger
 	 */
-	public function compile($compiler)
+	public function compile(Twig_Compiler $compiler)
 	{
 		$params = $this->getNode('expression')->getIterator();
 	

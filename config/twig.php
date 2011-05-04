@@ -25,6 +25,9 @@ return array
 			'base_template_class' => 'Twig_Template',
 			'cache'               => APPPATH.'cache/twig',
 			'auto_reload'         => TRUE,
+			'strict_variables'    => FALSE,
+			'autoescape'          => TRUE,
+			'optimizations'       => -1,
 			/**
 			 * Allow customization of the Twig Syntax.
 			 * Note : This is waiting to be fixed upstream by fabien

@@ -39,6 +39,7 @@ class Kohana_Twig_Extensions extends Twig_Extension
 			// Translation
 			'translate' => new Twig_Filter_Function('__'),
 			'trans' => new Twig_Filter_Function('__'),
+			'tr' => new Twig_Filter_Function('__'),
 			
 			// Date and time
 			'timestamp' => new Twig_Filter_Function('strtotime'),

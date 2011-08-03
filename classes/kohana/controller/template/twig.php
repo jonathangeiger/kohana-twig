@@ -29,12 +29,12 @@ abstract class Kohana_Controller_Template_Twig extends Controller
 	 */
 	public function before()
 	{
-		if (empty($this->template))
+		if ((bool)$this->template)
 		{
 			// Generate a template name if one wasn't set.
 			$this->template = str_replace('_', DIRECTORY_SEPARATOR, $this->request->controller()).DIRECTORY_SEPARATOR.$this->request->action();
 
-			if ( ! empty($this->request->directory()))
+			if ( ! (bool)$this->request->directory())
 			{
 				$this->template = $this->request->directory().DIRECTORY_SEPARATOR.$this->template;
 			}

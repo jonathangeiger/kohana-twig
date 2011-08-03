@@ -18,9 +18,14 @@ abstract class Kohana_Controller_Template_Twig extends Controller
 	protected $_auto_render = TRUE;
 
 	/**
-	 * @var Twig
+	 * @var string  Template path that points to the action view 
 	 */
-	protected $_template;
+	protected $_template_path;
+
+	/**
+	 * @var boolean  Standalone context
+	 */
+	private $__context;
 
 	/**
 	 * Have a standalone action context. A context should not be within a template because not
@@ -45,8 +50,8 @@ abstract class Kohana_Controller_Template_Twig extends Controller
 	 */
     public function __get( $key )
     {
-        return isset( $this->__data[$key] )
-             ? $this->__data[$key]
+        return isset( $this->__context[$key] )
+             ? $this->__context[$key]
              : array();
     }
     
@@ -71,37 +76,22 @@ abstract class Kohana_Controller_Template_Twig extends Controller
 	 */
     public function __set( $key,$value )
     {
-        return $this->__data[$key] = $value;
+        return $this->__context[$key] = $value;
     }
     
 	/**
-	 * Setup view
-	 *
-	 * @return void
+	 * Before the action gets executed we need run a few processes.
+	 * 
+	 * @uses  $this->_set_template_path
+	 * @return  void
 	 */
 	public function before()
 	{
-		if ((bool)$this->template)
-		{
-			// Generate a template name if one wasn't set.
-			$this->template = str_replace('_', DIRECTORY_SEPARATOR, $this->request->controller()).DIRECTORY_SEPARATOR.$this->request->action();
-
-			if ( ! (bool)$this->request->directory())
-			{
-				$this->template = $this->request->directory().DIRECTORY_SEPARATOR.$this->template;
-			}
-		}
-
-		if ($this->auto_render)
-		{
-			// Load the twig template.
-			$this->template = Twig::factory($this->template, $this->environment);
-
-			// Return the twig environment
-			$this->environment = $this->template->environment();
-		}
-
-		return parent::before();
+	    
+        // Load the path that points to the view (if applicable)
+        $this->_set_template_path( $this->request->controller(), $this->request->action(), 'html' );
+        parent::before();
+        
 	}
 
 	/**
@@ -111,13 +101,31 @@ abstract class Kohana_Controller_Template_Twig extends Controller
 	 */
 	public function after()
 	{
-		if ($this->auto_render)
-		{
-			// Auto-render the template
-			$this->request->response = $this->template;
-		}
-
-		return parent::after();
+	    if((bool)$this->__template_path)
+	    {
+            if((bool)$this->_auto_render)
+            {
+                $this->request->response( Twig::factory($this->template, $this->__context, $this->_environment) );
+            }
+	    }
 	}
-
+    
+	/**
+	 * Load the path that points to the view (if applicable)
+	 * 
+	 * @param   string  $path       Directory path
+	 * @param   string  $file       File name
+	 * @param   string  $extension  File Extension
+	 * @usedby  $this->before
+	 * @return  mixed
+	 */
+    protected function _set_template_path($path,$file,$extension="html")
+    {
+        $path = "views".DIRECTORY_SEPARATOR.$path;
+        if( Kohana::find_file($path,$file,$extension) )
+        {
+            $this->__template_path = $path.DIRECTORY_SEPARATOR.$file.".".$extension;
+        }
+    }
+    
 } // End Controller_Twig

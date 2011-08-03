@@ -120,7 +120,7 @@ abstract class Kohana_Twig
 		if ($env instanceof Twig_Environment == FALSE)
 		{
 			// Load the default extension from the config
-			$this->_extension = Kohana::config('twig.'.$env.'.loader.extension');
+			$this->_extension = Kohana::$config->load('twig.'.$env.'.loader.extension');
 			
 			$env = Kohana_Twig_Environment::instance($env);
 		}

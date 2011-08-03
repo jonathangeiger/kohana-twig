@@ -10,18 +10,70 @@ abstract class Kohana_Controller_Template_Twig extends Controller
 	/**
 	 * @var Twig_Environment
 	 */
-	public $environment = 'default';
+	protected $_environment = 'default';
 
 	/**
 	 * @var boolean  Auto-render template after controller method returns
 	 */
-	public $auto_render = TRUE;
+	protected $_auto_render = TRUE;
 
 	/**
 	 * @var Twig
 	 */
-	public $template;
+	protected $_template;
 
+	/**
+	 * Have a standalone action context. A context should not be within a template because not
+	 * all request require a template, thus, we allow the controller to handle the context for
+	 * later manipulation. We use magic methods to manipulate the data:
+	 *
+	 *     class Controller_Object{
+     *         public function action_index()
+     *         {
+     *             // Setter
+     *             $this->var1 = "test";
+     *             $this->var2 = array(
+     *                 'k1' => 'v1',
+     *                 'k2' => 'v2',
+     *                 'k3' => 'v3',
+     *             );
+     *         }
+	 *     }
+	 *
+	 * @param   mixed  $key
+	 * @return  array
+	 */
+    public function __get( $key )
+    {
+        return isset( $this->__data[$key] )
+             ? $this->__data[$key]
+             : array();
+    }
+    
+	/**
+	 * Have a standalone action context. A context should not be within a template because not
+	 * all request require a template, thus, we allow the controller to handle the context for
+	 * later manipulation. We use magic methods to manipulate the data:
+	 *
+	 *     class Controller_Object{
+     *         public function action_index()
+     *         {
+     *             // Getter
+     *             $var1 = $this->var1;
+     *             // modify the var1
+     *             $this->var1 = $var1;
+     *         }
+	 *     }
+	 *
+	 * @param   string  $key
+	 * @param   mixed   $value
+	 * @return  mixed
+	 */
+    public function __set( $key,$value )
+    {
+        return $this->__data[$key] = $value;
+    }
+    
 	/**
 	 * Setup view
 	 *

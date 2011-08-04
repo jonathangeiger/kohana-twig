@@ -111,21 +111,25 @@ abstract class Kohana_Controller_Template_Twig extends Controller
 	}
     
 	/**
-	 * Load the path that points to the view (if applicable)
+	 * Load the path that points to the view (if applicable).
+	 * We return a bool so that the method can be reused even
+	 * if there's the need to extend the method
 	 * 
 	 * @param   string  $path       Directory path
 	 * @param   string  $file       File name
 	 * @param   string  $extension  File Extension
 	 * @usedby  $this->before
-	 * @return  mixed
+	 * @return  bool  This boolean determines whether the file exists or not
 	 */
     protected function _set_template_path($path,$file,$extension="html")
     {
-        $path = "views".DIRECTORY_SEPARATOR.$path;
-        if( Kohana::find_file($path,$file,$extension) )
+        $path   = "views".DIRECTORY_SEPARATOR.$path;
+        $exists = Kohana::find_file($path,$file,$extension);
+        if( $exists )
         {
             $this->__template_path = $path.DIRECTORY_SEPARATOR.$file.".".$extension;
         }
+        return $exists;
     }
     
 } // End Controller_Twig

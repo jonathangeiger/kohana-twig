@@ -105,7 +105,7 @@ abstract class Kohana_Controller_Template_Twig extends Controller
 	    {
             if((bool)$this->_auto_render)
             {
-                $this->request->response( Twig::factory($this->template, $this->__context, $this->_environment) );
+                $this->request->response( Twig::factory($this->_template_path, $this->__context, $this->_environment) );
             }
 	    }
 	}

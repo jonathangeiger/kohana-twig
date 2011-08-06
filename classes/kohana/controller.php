@@ -1,12 +1,8 @@
 <?php defined('SYSPATH') or die('No direct script access.');
-/**
- * Twig template controller
- *
- * @package    Kohana-Twig
- * @author     John Heathco <jheathco@gmail.com>
- */
-abstract class Kohana_Controller_Template_Twig extends Controller
+
+abstract class Kohana_Controller
 {
+    
 	/**
 	 * @var Twig_Environment
 	 */
@@ -25,7 +21,34 @@ abstract class Kohana_Controller_Template_Twig extends Controller
 	/**
 	 * @var boolean  Standalone context
 	 */
-	private $__context;
+	public $__context;
+
+	/**
+	 * @var  Request  Request that created the controller
+	 */
+	public $request;
+
+	/**
+	 * @var  Response The response that will be returned from controller
+	 */
+	public $response;
+    
+	/**
+	 * Creates a new controller instance. Each controller must be constructed
+	 * with the request object that created it.
+	 *
+	 * @param   Request   $request  Request that created the controller
+	 * @param   Response  $response The request's response
+	 * @return  void
+	 */
+	public function __construct(Request $request, Response $response)
+	{
+		// Assign the request to the controller
+		$this->request = $request;
+
+		// Assign a response to the controller
+		$this->response = $response;
+	}
 
 	/**
 	 * Have a standalone action context. A context should not be within a template because not
@@ -78,7 +101,7 @@ abstract class Kohana_Controller_Template_Twig extends Controller
     {
         return $this->__context[$key] = $value;
     }
-    
+
 	/**
 	 * Before the action gets executed we need run a few processes.
 	 * 
@@ -90,7 +113,6 @@ abstract class Kohana_Controller_Template_Twig extends Controller
 	    
         // Load the path that points to the view (if applicable)
         $this->_set_template_path( $this->request->controller(), $this->request->action(), 'html' );
-        parent::before();
         
 	}
 
@@ -100,14 +122,16 @@ abstract class Kohana_Controller_Template_Twig extends Controller
 	 * @return void
 	 */
 	public function after()
-	{
-	    if((bool)$this->__template_path)
+    {
+        // Output the template automatically (if applicable)
+	    if((bool)$this->_template_path)
 	    {
             if((bool)$this->_auto_render)
             {
-                $this->request->response( Twig::factory($this->_template_path, $this->__context, $this->_environment) );
+                $this->response->body( Twig::factory($this->_template_path, $this->__context, $this->_environment)->render() );
             }
 	    }
+	    
 	}
     
 	/**
@@ -123,13 +147,12 @@ abstract class Kohana_Controller_Template_Twig extends Controller
 	 */
     protected function _set_template_path($path,$file,$extension="html")
     {
-        $path   = "views".DIRECTORY_SEPARATOR.$path;
-        $exists = Kohana::find_file($path,$file,$extension);
+        $exists = Kohana::find_file("views".DIRECTORY_SEPARATOR.$path,$file,$extension);
         if( $exists )
         {
-            $this->__template_path = $path.DIRECTORY_SEPARATOR.$file.".".$extension;
+            $this->_template_path = $path.DIRECTORY_SEPARATOR.$file.".".$extension;
         }
         return $exists;
     }
     
-} // End Controller_Twig
+} // End Controller

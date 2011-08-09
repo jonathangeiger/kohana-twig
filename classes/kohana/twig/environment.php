@@ -22,7 +22,7 @@ class Kohana_Twig_Environment
 
 		if (!isset($instances[$env]))
 		{
-			$config = Kohana::config('twig.'.$env);
+			$config = Kohana::$config->load('twig.'.$env);
 			
 			// Create the the loader
 			$twig_loader = $config['loader']['class'];

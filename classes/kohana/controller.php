@@ -152,7 +152,7 @@ abstract class Kohana_Controller
 	 * @return  bool|string  Under the setter behaviour, we return a boolean that determines whether the file exists or not.
 	 *                       Under the getter behaviour, we return a string that determines the value of _template_path
 	 */
-    protected function template_path($path=NULL,$file=NULL,$extension="html")
+    protected function template_path($path=NULL,$file=NULL,$extension="twig")
     {
         if( $path === NULL AND $file === NULL )
         {

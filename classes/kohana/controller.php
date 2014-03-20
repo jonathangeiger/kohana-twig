@@ -105,20 +105,24 @@ abstract class Kohana_Controller
 	/**
 	 * Before the action gets executed we need run a few processes.
 	 * 
-	 * @uses  $this->_set_template_path
+	 * @uses  $this->template_path
 	 * @return  void
 	 */
 	public function before()
 	{
 	    
         // Load the path that points to the view (if applicable)
-        $this->_set_template_path( $this->request->controller(), $this->request->action(), 'html' );
+        $this->template_path( $this->request->controller(), $this->request->action(), 'html' );
         
 	}
 
 	/**
 	 * Renders the template if necessary
 	 *
+	 * @uses  $this->_template_path
+	 * @uses  $this->__context
+	 * @uses  $this->_environment
+	 * @uses  $this->_auto_render
 	 * @return void
 	 */
 	public function after()
@@ -135,24 +139,41 @@ abstract class Kohana_Controller
 	}
     
 	/**
-	 * Load the path that points to the view (if applicable).
-	 * We return a bool so that the method can be reused even
-	 * if there's the need to extend the method
+	 * Behave like kohana's getter/setter methods.
+	 * The setter behaviour occurs when parameters are passed to the method.
+	 * The getter behaviour occurs when no parameters are passed to the method.
+	 * 
 	 * 
 	 * @param   string  $path       Directory path
 	 * @param   string  $file       File name
-	 * @param   string  $extension  File Extension
+	 * @param   string  $extension  (optional) File Extension
+	 * @uses    $this->_template_path
 	 * @usedby  $this->before
-	 * @return  bool  This boolean determines whether the file exists or not
+	 * @return  bool|string  Under the setter behaviour, we return a boolean that determines whether the file exists or not.
+	 *                       Under the getter behaviour, we return a string that determines the value of _template_path
 	 */
-    protected function _set_template_path($path,$file,$extension="html")
+    protected function template_path($path=NULL,$file=NULL,$extension="twig")
     {
-        $exists = Kohana::find_file("views".DIRECTORY_SEPARATOR.$path,$file,$extension);
-        if( $exists )
+        if( $path === NULL AND $file === NULL )
         {
-            $this->_template_path = $path.DIRECTORY_SEPARATOR.$file.".".$extension;
+            return $this->_template_path;
         }
-        return $exists;
+        else if( $path !== NULL AND $file !== NULL )
+        {
+            $exists = Kohana::find_file("views".DIRECTORY_SEPARATOR.$path,$file,$extension);
+            if( $exists )
+            {
+                $this->_template_path = $path.DIRECTORY_SEPARATOR.$file.".".$extension;
+            }
+            return $exists;
+        }
+        else
+        {
+            throw new Kohana_Exception(
+                "Wrong number of parameters passed to the template_path method"
+            );
+        }
+
     }
     
 } // End Controller
